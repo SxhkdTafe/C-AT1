@@ -2,6 +2,7 @@
 using Comp;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
+using System.Threading.Tasks.Dataflow;
 namespace C_2AT1
 {
     public class Controller
@@ -15,7 +16,6 @@ namespace C_2AT1
             Express = new Queue<Drone>();
             Completed = new List<Completed>();
         }
-
         public void DroneAddReg(string model, string problem, string client, double cost, string tag)
         {
             Regular.Enqueue(new Drone(model, problem, client, cost, RegTagGen()));
@@ -48,17 +48,38 @@ namespace C_2AT1
         {
             if (choice == 1)
             {
-                Completed.Add(Express.ToList());
+                Drone d = Regular.Peek();
+                Completed.Add(new Completed(d, "Regular"));
             }
             else if (choice == 2) 
             {
-
+                Drone d = Express.Peek();
+                Completed.Add(new Completed(d, "Express"));
             }
         }
-        public void convert()
+        public void PaymentProcess(double Paid, string Name, string Tag, string Type)
         {
-            Express.Peek();
-            Express.ToList();
+            foreach (Completed item in Completed) 
+            {
+                if (item.ClientName == Name && item.Tag == Tag && item.Type == Type)
+                {
+                    item.Cost = item.Cost - Paid;
+                }
+            }
+        }
+        public void RemovePayed()
+        {
+            foreach (Completed item in Completed)
+            {
+                if (item.Cost == 0)
+                {
+                    Completed.Remove(item);
+                }
+            }
+        }
+        public string HandleOverPay()
+        {
+
         }
     }
 }

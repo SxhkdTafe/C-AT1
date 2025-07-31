@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36202.13 d17.14
+VisualStudioVersion = 17.14.36202.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C#2AT1", "C#2AT1.csproj", "{0EFCDE22-EEE3-4A5C-93B5-A6A163195A74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DroneInterface", "..\DroneInterface\DroneInterface.csproj", "{6B791DBC-821D-42D3-9E24-074F0D43296B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{0EFCDE22-EEE3-4A5C-93B5-A6A163195A74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EFCDE22-EEE3-4A5C-93B5-A6A163195A74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EFCDE22-EEE3-4A5C-93B5-A6A163195A74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B791DBC-821D-42D3-9E24-074F0D43296B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B791DBC-821D-42D3-9E24-074F0D43296B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B791DBC-821D-42D3-9E24-074F0D43296B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B791DBC-821D-42D3-9E24-074F0D43296B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

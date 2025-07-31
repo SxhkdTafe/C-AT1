@@ -3,28 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dr;
 
 namespace Comp
 {
     public class Completed
     {
-        private string ClientName { get; set; }
-        private string DroneModel { get; set; }
-        private string Problem { get; set; }
-        private double Cost { get; set; }
-        private string Tag { get; set; }
-        private string Type { get; set; }
+        public string ClientName { get; set; }
+        public string DroneModel { get; set; }
+        public string Problem { get; set; }
+        public double Cost { get; set; }
+        public string Tag { get; set; }
+        public string Type { get; set; }
         public Completed()
         {
 
         }
-        public Completed(string clientName, string droneModel, string problem, double cost, string tag, string type)
+        public Completed(Drone d,string type)
         {
-            ClientName = clientName;
-            DroneModel = droneModel;
-            Problem = problem;
-            Cost = cost;
-            Tag = tag;
+            ClientName = d.ClientName;
+            DroneModel = d.DroneModel;
+            Problem = d.Problem;
+            Cost = d.Cost;
+            Tag = d.Tag;
             Type = type;
         }
     }
