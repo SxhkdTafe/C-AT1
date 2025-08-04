@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.14.36202.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C#2AT1", "C#2AT1.csproj", "{0EFCDE22-EEE3-4A5C-93B5-A6A163195A74}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6B791DBC-821D-42D3-9E24-074F0D43296B} = {6B791DBC-821D-42D3-9E24-074F0D43296B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DroneInterface", "..\DroneInterface\DroneInterface.csproj", "{6B791DBC-821D-42D3-9E24-074F0D43296B}"
 EndProject
