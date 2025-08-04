@@ -32,6 +32,66 @@ namespace C_2AT1
         {
             Express.Dequeue();
         }
+        public string DisplayQueueExp()
+        {
+            if (Express.Count > 0)
+            {
+                string result = "";
+                foreach (var drone in Express)
+                {
+                    result += $"{drone}\n";
+                }
+                return result;
+            }
+            else if (Express.Count == 0)
+            {
+                return ("Express Queue is Empty");
+            }
+            else 
+            {
+                return ("Error");
+            }     
+        }
+        public string DisplayQueueReg()
+        {
+            if (Regular.Count > 0)
+            {
+                string result = "";
+                foreach (var drone in Regular)
+                {
+                    result += $"{drone}\n";
+                }
+                return result;
+            }
+            else if (Regular.Count == 0)
+            {
+                return ("Regular Queue is Empty");
+            }
+            else
+            {
+                return ("Error");
+            }
+        }
+        public string DisplayQueueCom()
+        {
+            if (Completed.Count > 0)
+            {
+                string result = "";
+                foreach (var drone in Completed)
+                {
+                    result += $"{drone}\n";
+                }
+                return result;
+            }
+            else if (Completed.Count == 0)
+            {
+                return ("Complete Queue is Empty");
+            }
+            else
+            {
+                return ("Error");
+            }
+        }
         public double ExpCostCalc(double cost,double surcharge)
         {
             return cost + (cost * surcharge);
@@ -71,15 +131,11 @@ namespace C_2AT1
         {
             foreach (Completed item in Completed)
             {
-                if (item.Cost == 0)
+                if (item.Cost <= 0)
                 {
                     Completed.Remove(item);
                 }
             }
-        }
-        public string HandleOverPay()
-        {
-
         }
     }
 }
