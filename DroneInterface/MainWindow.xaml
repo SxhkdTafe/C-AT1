@@ -1,0 +1,58 @@
+﻿<Window x:Class="DroneInterface.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DroneInterface"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="488" Width="1019">
+    <Grid>
+        <TextBox x:Name="ClientNameBox" Height="29" Margin="147,181,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Cursor="Arrow" RenderTransformOrigin="1.424,0.551" TextChanged="TextBox_TextChanged" HorizontalAlignment="Left" Width="91"/>
+        <TextBox x:Name="DroneModelBox" Height="30" Margin="147,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Cursor="Arrow" RenderTransformOrigin="1.424,0.551" HorizontalAlignment="Left" Width="91"/>
+        <TextBox x:Name="ProblemBox" Height="30" Margin="147,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Cursor="Arrow" RenderTransformOrigin="1.424,0.551" HorizontalAlignment="Left" Width="91"/>
+        <TextBox x:Name="CostBox" Height="29" Margin="147,290,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Cursor="Arrow" RenderTransformOrigin="1.424,0.551" HorizontalAlignment="Left" Width="91"/>
+        <Label Content="Client Name:" Height="29" Margin="54,181,877,0" VerticalAlignment="Top" RenderTransformOrigin="-0.093,0.587"/>
+        <Label Content="Drone Model:" Height="30" Margin="53,217,877,0" VerticalAlignment="Top"/>
+        <Label Content="Problem:" Height="30" Margin="70,253,877,0" VerticalAlignment="Top"/>
+        <Label Content="Cost: " Height="29" Margin="86,290,877,0" VerticalAlignment="Top"/>
+        <RichTextBox x:Name="RegularDisplayBox" Height="87" Margin="241,123,0,0" VerticalAlignment="Top" IsReadOnly="True" HorizontalAlignment="Left" Width="251">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text=""/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <ComboBox x:Name="Type" HorizontalAlignment="Left" Height="30" Margin="147,144,0,0" VerticalAlignment="Top" Width="91"/>
+        <Label Content="Type:" Height="37" Margin="82,144,877,0" VerticalAlignment="Top" RenderTransformOrigin="-0.093,0.587"/>
+        <RichTextBox x:Name="CompleteDisplayBox" Margin="499,123,0,0" IsReadOnly="True" Height="249" VerticalAlignment="Top" HorizontalAlignment="Left" Width="251">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text=""/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Label Content="                       Regular Queue " HorizontalAlignment="Left" Height="30" Margin="246,81,0,0" VerticalAlignment="Top" Width="246"/>
+        <Label Content="              Completed List(Not Payed)" Height="36" Margin="497,81,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="246"/>
+        <Button x:Name="SubmitButton" Content="Submit" HorizontalAlignment="Left" Height="28" Margin="147,326,0,0" VerticalAlignment="Top" Width="91" Click="Button_Click"/>
+        <Button x:Name="PayedButton" Content="Payed" Margin="499,377,0,0" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="251" Click="PayedButton_Click"/>
+        <Button x:Name="ExpCompleteButton" Content="Completed" HorizontalAlignment="Left" Height="28" Margin="242,377,0,0" VerticalAlignment="Top" Width="251" Click="ExpCompleteButton_Click"/>
+        <Label Content="                       Express Queue " HorizontalAlignment="Left" Height="31" Margin="243,249,0,0" VerticalAlignment="Top" Width="249"/>
+        <RichTextBox x:Name="ExpressDisplayBox" Height="92" Margin="241,280,0,0" VerticalAlignment="Top" IsReadOnly="True" HorizontalAlignment="Left" Width="251">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text=""/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Button x:Name="RegCompleteButton" Content="Completed" HorizontalAlignment="Left" Height="28" Margin="241,215,0,0" VerticalAlignment="Top" Width="251" Click="RegCompleteButton_Click"/>
+        <Label Content="Amount Payed: " Height="29" Margin="755,142,168,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="AmountPayedBox" HorizontalAlignment="Left" Height="30" Margin="856,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="110"/>
+        <TextBox x:Name="CompleteDroneModelBox" HorizontalAlignment="Left" Height="30" Margin="856,176,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="110"/>
+        <Label Content="Drone Model: " Height="30" Margin="755,176,168,0" VerticalAlignment="Top"/>
+        <Label Content="Drone Tag: " Height="30" Margin="755,211,168,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="CompleteType" HorizontalAlignment="Left" Height="30" Margin="851,246,0,0" VerticalAlignment="Top" Width="91"/>
+        <Label Content="Type:" Height="29" Margin="755,246,204,0" VerticalAlignment="Top" RenderTransformOrigin="-0.093,0.587"/>
+        <TextBox x:Name="CompleteDroneTagBox" HorizontalAlignment="Left" Height="30" Margin="851,211,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="110"/>
+
+    </Grid>
+</Window>
