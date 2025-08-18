@@ -8,11 +8,11 @@ namespace Dr
 {
     public class Drone
     {
-        private string ClientName { get; set; }
-        private string DroneModel { get; set; }
-        private string Problem { get; set; }
-        private double Cost { get; set; }
-        private string Tag { get; set; }
+        public string ClientName { get; set; }
+        public string DroneModel { get; set; }
+        public string Problem { get; set; }
+        public double Cost { get; set; }
+        public string Tag { get; set; }
         public Drone()
         {
 
