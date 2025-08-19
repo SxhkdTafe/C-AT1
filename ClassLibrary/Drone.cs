@@ -19,7 +19,7 @@ namespace Dr
         }
         public Drone(string model, string problem, string client, double cost, string tag)
         {
-            this.ClientName = model;
+            this.ClientName = client;
             this.Problem = problem;
             this.Cost = cost;
             this.Tag = tag;
