@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <BaseOutputPath>C:\Users\conno\source\repos\C-AT1\bin</BaseOutputPath>
+    <BaseOutputPath>..\source\repos\C-AT1\bin</BaseOutputPath>
   </PropertyGroup>
 
 </Project>

@@ -26,11 +26,18 @@ namespace C_2AT1
         }
         public void DroneRemoveReg()
         {
-            Regular.Dequeue();
+            if (Regular.Count > 0) 
+            {
+                Regular.Dequeue();
+            }
         }
         public void DroneRemoveExp()
         {
-            Express.Dequeue();
+            if (Express.Count > 0) 
+            {
+                Express.Dequeue();
+            }
+
         }
         public string DisplayQueueExp()
         {
@@ -77,29 +84,51 @@ namespace C_2AT1
         }
         public string ExpTagGen()
         {
-            return $"#{Express.Count + 1}"; 
+            int num = 0; 
+            foreach (var d in Completed)
+            {
+                if (d.Type == "Express")
+                {
+                    num++;
+                }
+            }
+            return $"#{Express.Count + 1 + num}"; 
         }
         public string RegTagGen()
         {
-            return $"#{Regular.Count + 1}";
+            int num = 0;
+            foreach (var d in Completed)
+            {
+                if (d.Type == "Regular")
+                {
+                    num++;
+                }
+            }
+            return $"#{Regular.Count + 1 + num}";
         }
         public void AddCompleteListReg()
         {
-            Drone d = Regular.Peek();
-            Completed.Add(new Completed(d, "Regular"));
+            if (Regular.Count > 0)
+            {
+                Drone d = Regular.Peek();
+                Completed.Add(new Completed(d, "Regular"));
+            }
         }
         public void AddCompleteListExp()
         {
-            Drone d = Express.Peek();
-            Completed.Add(new Completed(d, "Express"));
+            if (Express.Count > 0)
+            {
+                Drone d = Express.Peek();
+                Completed.Add(new Completed(d, "Express"));
+            }
         }
-        public void PaymentProcess(double Paid, string Name, string Tag, string Type)
+        public void PaymentProcess(double Paid, string model, string Tag, string Type)
         {
             foreach (Completed item in Completed) 
             {
-                if (item.ClientName == Name && item.Tag == Tag && item.Type == Type)
+                if (item.DroneModel == model && item.Tag == Tag && item.Type == Type)
                 {
-                    item.Cost = item.Cost - Paid;
+                    item.Cost -= Paid;
                 }
             }
         }

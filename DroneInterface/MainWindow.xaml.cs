@@ -37,6 +37,7 @@ namespace DroneInterface
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            int selectedindex = Type.SelectedIndex;
             var errors = new List<string>();
             if (!WPFHelper.ValidateInput(ClientNameBox, "",out string ClientNameError)) 
             {
@@ -57,7 +58,7 @@ namespace DroneInterface
                 errors.Add($"Cost: {CostBoxError}");
             }
 
-            int selectedindex = Type.SelectedIndex;
+;
             if (selectedindex < 0 ) 
             {
                 errors.Add("Please select a index");
@@ -102,6 +103,7 @@ namespace DroneInterface
 
         private void ExpCompleteButton_Click(object sender, RoutedEventArgs e)
         {
+            
             controller.AddCompleteListExp();
             controller.DroneRemoveExp();
             ExpressDisplayBox.Document.Blocks.Clear();
@@ -141,7 +143,7 @@ namespace DroneInterface
             }
 
             string type = CompleteType.Text;
-            string DroneTag = CompleteDroneTagBox.Text;
+            string DroneTag = ("#"+CompleteDroneTagBox.Text);
             string DroneModel = CompleteDroneModelBox.Text;
             double Payed;
             double.TryParse(AmountPayedBox.Text, out Payed);
