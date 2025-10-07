@@ -1,5 +1,4 @@
 ﻿using Dr;
-using Comp;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
 using System.Threading.Tasks.Dataflow;
@@ -7,15 +6,21 @@ namespace C_2AT1
 {
     public class DroneController
     {
-        Queue<Drone> Express;
-        Queue<Drone> Regular;
-        List<Completed> Completed;
+        //accessibility reference
+        private Queue<Drone> Express;
+        private Queue<Drone> Regular;
+        private List<Drone> Completed;
+
+
         public DroneController() 
         {
             Regular = new Queue<Drone>();
             Express = new Queue<Drone>();
-            Completed = new List<Completed>();
+            Completed = new List<Drone>();
         }
+
+
+
         public void DroneAddReg(string model, string problem, string client, double cost)
         {
             Regular.Enqueue(new Drone(model, problem, client, cost, RegTagGen()));
@@ -39,44 +44,32 @@ namespace C_2AT1
             }
 
         }
-        public string DisplayQueueExp()
+        public Queue<Drone> DisplayQueueExp()
         {
+            Queue<Drone> lol = new Queue<Drone>();
             if (Express.Count > 0)
             {
-                string result = "";
-                foreach (var drone in Express)
-                {
-                    result += $"Client Name: {drone.ClientName} | Drone Model: {drone.DroneModel} | Problem: {drone.Problem} | Cost: ${drone.Cost} | Tag:{drone.Tag}\n";
-                }
-                return result;
-            }           
-            return ("Express Queue is Empty");             
+                return Express;
+            }
+            return lol;
         }
-        public string DisplayQueueReg()
+        public Queue<Drone> DisplayQueueReg()
         {
+            Queue<Drone> lol = new Queue<Drone>();
             if (Regular.Count > 0)
             {
-                string result = "";
-                foreach (var drone in Regular)
-                {
-                    result += $"Client Name: {drone.ClientName} | Drone Model: {drone.DroneModel} | Problem: {drone.Problem} | Cost: ${drone.Cost} | Tag:{drone.Tag}\n";
-                }
-                return result;
+                return Regular;
             }
-            return "Regular Queue is Empty";
+            return lol;
         }
-        public string DisplayQueueCom()
+        public List<Drone> DisplayQueueCom()
         {
+            List<Drone> lol = new List<Drone>();
             if (Completed.Count > 0)
             {
-                string result = "";
-                foreach (var drone in Completed)
-                {
-                    result += $"Client Name: {drone.ClientName} | Drone Model: {drone.DroneModel} | Problem: {drone.Problem} | Cost: ${drone.Cost} | Tag:{drone.Tag} | Type: {drone.Type}\n";
-                }
-                return result;
+                return Completed;
             }
-            return "Complete Queue is Empty";
+            return lol;
         }
         public double ExpCostCalc(double cost,double surcharge)
         {
@@ -84,34 +77,53 @@ namespace C_2AT1
         }
         public string ExpTagGen()
         {
-            int num = 0; 
-            foreach (var d in Completed)
+            int first = 0;
+            int last = 900;
+            if (Express.Count != 0)
             {
-                if (d.Type == "Express")
-                {
-                    num++;
-                }
+                string sfirst = Express.Peek().Tag;
+                first = Convert.ToInt16(sfirst.Substring(1));
+                string slast = Express.Last().Tag;
+                last = Convert.ToInt16(slast.Substring(1));
             }
-            return $"#{Express.Count + 1 + num}"; 
+            if (first != 100)
+            {
+                return "#100";
+            }
+            else if (last > 900)
+            {
+                return "#100";
+            }
+            return $"#{last + 10}"; 
         }
         public string RegTagGen()
         {
-            int num = 0;
-            foreach (var d in Completed)
+            int first = 0;
+            int last = 900;
+            if (Regular.Count != 0)
             {
-                if (d.Type == "Regular")
-                {
-                    num++;
-                }
+                string sfirst = Regular.Peek().Tag;
+                first = Convert.ToInt16(sfirst.Substring(1));
+                string slast = Regular.Last().Tag;
+                last = Convert.ToInt16(slast.Substring(1));
             }
-            return $"#{Regular.Count + 1 + num}";
+
+            if (first != 100)
+            {
+                return "#100";
+            }
+            else if ( last > 900)
+            {
+                return "100";
+            }
+            return $"#{last + 10}";
         }
         public void AddCompleteListReg()
         {
             if (Regular.Count > 0)
             {
                 Drone d = Regular.Peek();
-                Completed.Add(new Completed(d, "Regular"));
+                Completed.Add(d);
             }
         }
         public void AddCompleteListExp()
@@ -119,16 +131,17 @@ namespace C_2AT1
             if (Express.Count > 0)
             {
                 Drone d = Express.Peek();
-                Completed.Add(new Completed(d, "Express"));
+                Completed.Add(d);
             }
         }
-        public void PaymentProcess(double Paid, string model, string Tag, string Type)
+        public void PaymentProcess(double Paid, string model, string Tag)
         {
-            foreach (Completed item in Completed) 
+            foreach (Drone item in Completed) 
             {
-                if (item.DroneModel == model && item.Tag == Tag && item.Type == Type)
+                if (item.DroneModel == model && item.Tag == Tag)
                 {
                     item.Cost -= Paid;
+                    break;
                 }
             }
         }

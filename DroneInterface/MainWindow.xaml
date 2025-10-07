@@ -15,43 +15,62 @@
         <Label Content="Drone Model:" Height="30" Margin="53,217,877,0" VerticalAlignment="Top"/>
         <Label Content="Problem:" Height="30" Margin="70,253,877,0" VerticalAlignment="Top"/>
         <Label Content="Cost: " Height="29" Margin="86,290,877,0" VerticalAlignment="Top"/>
-        <RichTextBox x:Name="RegularDisplayBox" Height="87" Margin="241,123,0,0" VerticalAlignment="Top" IsReadOnly="True" HorizontalAlignment="Left" Width="251">
-            <FlowDocument>
-                <Paragraph>
-                    <Run Text=""/>
-                </Paragraph>
-            </FlowDocument>
-        </RichTextBox>
+        <ListBox x:Name="RegQBox"
+         SelectionMode="Single" Margin="246,123,527,262" ItemsSource="{Binding RegularNames}" RenderTransformOrigin="0.419,0.305" FontSize="9" SelectionChanged="RegQBox_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding ClientName, StringFormat='Client Name: {0}'}" Margin="5"/>
+                        <TextBlock Text="{Binding DroneModel, StringFormat='Drone Model: {0}'}" Margin="5"/>
+                        <TextBlock Text="{Binding Problem, StringFormat='Problem: {0}'}" Margin="5"/>
+                        <TextBlock Text="{Binding Cost, StringFormat='Cost: {0}'}" Margin="5"/>
+                        <TextBlock Text="{Binding Tag, StringFormat='Tag: {0}'}" Margin="5"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <ComboBox x:Name="Type" HorizontalAlignment="Left" Height="30" Margin="147,144,0,0" VerticalAlignment="Top" Width="91"/>
         <Label Content="Type:" Height="37" Margin="82,144,877,0" VerticalAlignment="Top" RenderTransformOrigin="-0.093,0.587"/>
-        <RichTextBox x:Name="CompleteDisplayBox" Margin="499,123,0,0" IsReadOnly="True" Height="249" VerticalAlignment="Top" HorizontalAlignment="Left" Width="251">
-            <FlowDocument>
-                <Paragraph>
-                    <Run Text=""/>
-                </Paragraph>
-            </FlowDocument>
-        </RichTextBox>
+        <ListBox x:Name="CompListBox"
+         SelectionMode="Single" Margin="499,123,269,100" ItemsSource="{Binding CompNames}" SelectionChanged="CompListBox_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding ClientName, StringFormat='Client Name: {0}'}" Margin="5"/>
+                        <TextBlock Text="{Binding DroneModel, StringFormat='Drone Model: {0}'}" Margin="5"/>
+                        <TextBlock Text="{Binding Problem, StringFormat='Problem: {0}'}" Margin="5"/>
+                        <TextBlock Text="{Binding Cost, StringFormat='Cost: {0}'}" Margin="5"/>
+                        <TextBlock Text="{Binding Tag, StringFormat='Tag: {0}'}" Margin="5"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Label Content="                       Regular Queue " HorizontalAlignment="Left" Height="30" Margin="246,81,0,0" VerticalAlignment="Top" Width="246"/>
         <Label Content="              Completed List(Not Payed)" Height="36" Margin="497,81,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="246"/>
-        <Button x:Name="SubmitButton" Content="Submit" HorizontalAlignment="Left" Height="28" Margin="147,326,0,0" VerticalAlignment="Top" Width="91" Click="Button_Click"/>
+        <Button x:Name="SubmitButton" Content="Submit" HorizontalAlignment="Left" Height="28" Margin="147,326,0,0" VerticalAlignment="Top" Width="91" Click="SubmitButton_Click"/>
         <Button x:Name="PayedButton" Content="Payed" Margin="499,377,0,0" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="251" Click="PayedButton_Click"/>
         <Button x:Name="ExpCompleteButton" Content="Completed" HorizontalAlignment="Left" Height="28" Margin="242,377,0,0" VerticalAlignment="Top" Width="251" Click="ExpCompleteButton_Click"/>
         <Label Content="                       Express Queue " HorizontalAlignment="Left" Height="31" Margin="243,249,0,0" VerticalAlignment="Top" Width="249"/>
-        <RichTextBox x:Name="ExpressDisplayBox" Height="92" Margin="241,280,0,0" VerticalAlignment="Top" IsReadOnly="True" HorizontalAlignment="Left" Width="251">
-            <FlowDocument>
-                <Paragraph>
-                    <Run Text=""/>
-                </Paragraph>
-            </FlowDocument>
-        </RichTextBox>
+        <ListBox x:Name="ExpQBox"
+         SelectionMode="Single" Margin="246,280,527,100" ItemsSource="{Binding ExpressNames}" SelectionChanged="ExpQBox_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding ClientName, StringFormat='Client Name: {0}'}" Margin="5"/>
+                        <TextBlock Text="{Binding DroneModel, StringFormat='Drone Model: {0}'}" Margin="5"/>
+                        <TextBlock Text="{Binding Problem, StringFormat='Problem: {0}'}" Margin="5"/>
+                        <TextBlock Text="{Binding Cost, StringFormat='Cost: {0}'}" Margin="5"/>
+                        <TextBlock Text="{Binding Tag, StringFormat='Tag: {0}'}" Margin="5"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Button x:Name="RegCompleteButton" Content="Completed" HorizontalAlignment="Left" Height="28" Margin="241,215,0,0" VerticalAlignment="Top" Width="251" Click="RegCompleteButton_Click"/>
         <Label Content="Amount Payed: " Height="29" Margin="755,142,168,0" VerticalAlignment="Top"/>
         <TextBox x:Name="AmountPayedBox" HorizontalAlignment="Left" Height="30" Margin="856,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="110"/>
         <TextBox x:Name="CompleteDroneModelBox" HorizontalAlignment="Left" Height="30" Margin="856,176,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="110"/>
         <Label Content="Drone Model: " Height="30" Margin="755,176,168,0" VerticalAlignment="Top"/>
         <Label Content="Drone Tag: " Height="30" Margin="755,211,168,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="CompleteType" HorizontalAlignment="Left" Height="30" Margin="856,245,0,0" VerticalAlignment="Top" Width="91"/>
-        <Label Content="Type:" Height="29" Margin="755,246,204,0" VerticalAlignment="Top" RenderTransformOrigin="-0.093,0.587"/>
         <TextBox x:Name="CompleteDroneTagBox" HorizontalAlignment="Left" Height="30" Margin="856,211,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="110"/>
         <StatusBar x:Name="ErrorBar" HorizontalAlignment="Center" Height="34" Margin="0,410,0,0" VerticalAlignment="Top" Width="999"/>
 

@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using C_2AT1;
+using Dr;
+using System.Collections.ObjectModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -8,7 +11,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using C_2AT1;
 using WPFHelpers;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -20,14 +22,16 @@ namespace DroneInterface
     public partial class MainWindow : Window
     {
         private DroneController controller;
+        public ObservableCollection<Drone> ExpressNames { get; set; } = new ObservableCollection<Drone>();
+        public ObservableCollection<Drone> RegularNames { get; set; } = new ObservableCollection<Drone>();
+        public ObservableCollection<Drone> CompNames { get; set; } = new ObservableCollection<Drone>();
         public MainWindow()
         {
             InitializeComponent();
             Type.Items.Add("Regular");
             Type.Items.Add("Express");
-            CompleteType.Items.Add("Regular");
-            CompleteType.Items.Add("Express");
             controller = new DroneController();
+            this.DataContext = this;
         }
    
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -35,7 +39,9 @@ namespace DroneInterface
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+        //adjust name
+        private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
             int selectedindex = Type.SelectedIndex;
             var errors = new List<string>();
@@ -80,25 +86,75 @@ namespace DroneInterface
             if (selectedindex == 0)
             {
                 controller.DroneAddReg(DroneModel,Problem,ClientName,cost);
-                RegularDisplayBox.Document.Blocks.Clear();
-                RegularDisplayBox.AppendText(controller.DisplayQueueReg());
+                RegularNames.Clear();
+                foreach (var item in controller.DisplayQueueReg())
+                {
+                    RegularNames.Add(item);
+                }
             }
             else if (selectedindex == 1) 
             {
+                
                 controller.DroneAddExp(DroneModel, Problem, ClientName, cost);
-                ExpressDisplayBox.Document.Blocks.Clear();
-                ExpressDisplayBox.AppendText(controller.DisplayQueueExp());
+                ExpressNames.Clear();
+                foreach (var item in controller.DisplayQueueExp())
+                {
+                    ExpressNames.Add(item);
+                }
+            }
+            ClientNameBox.Clear();
+            DroneModelBox.Clear();
+            ProblemBox.Clear();
+            CostBox.Clear();
+            Type.SelectedIndex = -1;
+        }
+        private void RegQBox_SelectionChanged(object sender, EventArgs e)
+        {          
+            var item = RegQBox.SelectedItem as Drone;
+            if (item != null)
+            {
+                ClientNameBox.Text = item.ClientName;
+                DroneModelBox.Text = item.DroneModel;
+                ProblemBox.Text = item.Problem;
+                CostBox.Text = item.Cost.ToString();
+                Type.SelectedIndex = 0;
             }
         }
-
+        private void ExpQBox_SelectionChanged(object sender, EventArgs e)
+        {
+            var item = ExpQBox.SelectedItem as Drone;
+            if (item != null)
+            {
+                ClientNameBox.Text = item.ClientName;
+                DroneModelBox.Text = item.DroneModel;
+                ProblemBox.Text = item.Problem;
+                CostBox.Text = item.Cost.ToString();
+                Type.SelectedIndex = 1;
+            }
+        }
+        private void CompListBox_SelectionChanged(object sender, EventArgs e)
+        {
+            var item = CompListBox.SelectedItem as Drone;
+            if (item != null)
+            {
+                CompleteDroneModelBox.Text = item.DroneModel;
+                AmountPayedBox.Text = item.Cost.ToString();
+                CompleteDroneTagBox.Text = item.Tag;
+            }
+        }
         private void RegCompleteButton_Click(object sender, RoutedEventArgs e)
         {
             controller.AddCompleteListReg();
             controller.DroneRemoveReg();
-            RegularDisplayBox.Document.Blocks.Clear();
-            RegularDisplayBox.AppendText(controller.DisplayQueueReg());
-            CompleteDisplayBox.Document.Blocks.Clear();
-            CompleteDisplayBox.AppendText(controller.DisplayQueueCom());
+            RegularNames.Clear();
+            foreach (var item in controller.DisplayQueueReg())
+            {
+                RegularNames.Add(item);
+            }
+            foreach (var item in controller.DisplayQueueCom())
+            {
+                CompNames.Add(item);
+            }
         }
 
         private void ExpCompleteButton_Click(object sender, RoutedEventArgs e)
@@ -106,16 +162,21 @@ namespace DroneInterface
             
             controller.AddCompleteListExp();
             controller.DroneRemoveExp();
-            ExpressDisplayBox.Document.Blocks.Clear();
-            ExpressDisplayBox.AppendText(controller.DisplayQueueExp());
-            CompleteDisplayBox.Document.Blocks.Clear();
-            CompleteDisplayBox.AppendText(controller.DisplayQueueCom());
+            ExpressNames.Clear();
+            foreach (var item in controller.DisplayQueueExp())
+            {
+                ExpressNames.Add(item);
+            }
+            CompNames.Clear();
+            foreach (var item in controller.DisplayQueueCom())
+            {
+                CompNames.Add(item);
+            }
         }
 
         private void PayedButton_Click(object sender, RoutedEventArgs e)
         {
             var errors = new List<string>();
-            int selectedindex = CompleteType.SelectedIndex;
             if (!WPFHelper.ValidateInput(CompleteDroneTagBox, "", out string CompleteDroneTagError))
             {
                 errors.Add($"Drone Tag: {CompleteDroneTagError}");
@@ -123,10 +184,6 @@ namespace DroneInterface
             if (!WPFHelper.ValidateInput(CompleteDroneModelBox, "", out string CompleteDroneModelError))
             {
                 errors.Add($"Drone Model: {CompleteDroneModelError}");
-            }
-            if (selectedindex < 0)
-            {
-                errors.Add("Please select a index");
             }
 
             if (!WPFHelper.ValidateInput(AmountPayedBox, @"^\d+(\.\d{1,2})?$", out string AmountPayedBoxError))
@@ -142,16 +199,18 @@ namespace DroneInterface
                 return;
             }
 
-            string type = CompleteType.Text;
-            string DroneTag = ("#"+CompleteDroneTagBox.Text);
+            string DroneTag = (CompleteDroneTagBox.Text);
             string DroneModel = CompleteDroneModelBox.Text;
             double Payed;
             double.TryParse(AmountPayedBox.Text, out Payed);
 
-            controller.PaymentProcess(Payed, DroneModel, DroneTag, type);
+            controller.PaymentProcess(Payed, DroneModel, DroneTag);
             controller.RemovePayed();
-            CompleteDisplayBox.Document.Blocks.Clear();
-            CompleteDisplayBox.AppendText(controller.DisplayQueueCom());
+            CompNames.Clear();
+            foreach (var item in controller.DisplayQueueCom())
+            {
+                CompNames.Add(item);
+            }
         }
     }
 }
